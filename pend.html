@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kanban</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="script.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+  <div class="app">
+    <header class="header">
+      <h1 class="app-title"><i class="fas fa-tasks"></i> Sistema Kanban</h1>
+      <div class="tools">
+        <button id="exportBtn" class="btn secondary"><i class="fas fa-file-export"></i> Exportar</button>
+        <button id="importBtn" class="btn secondary"><i class="fas fa-file-import"></i> Importar</button>
+        <input id="fileInput" type="file" accept="application/json" style="display:none">
+      </div>
+    </header>
+
+    <section class="new-task">
+      <label for="taskInput"><i class="fas fa-plus-circle"></i> Nova Tarefa</label>
+      <textarea id="taskInput" placeholder="Descreva sua tarefa aqui..."></textarea>
+      <div class="controls">
+        <button id="addBtn" class="btn"><i class="fas fa-plus"></i> Adicionar Tarefa</button>
+        <button id="clearBtn" class="btn secondary"><i class="fas fa-eraser"></i> Limpar</button>
+      </div>
+    </section>
+
+    <main class="board" id="board">
+      <section class="column" data-column="Fazer">
+        <div class="col-header">
+          <div class="col-title"><i class="fas fa-clipboard-list"></i> Fazer</div>
+          <div class="col-count">0 tarefas</div>
+        </div>
+        <div class="col-scroll" data-col-scroll>
+          <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p>Nenhuma tarefa</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="column" data-column="Fazendo">
+        <div class="col-header">
+          <div class="col-title"><i class="fas fa-cogs"></i> Fazendo</div>
+          <div class="col-count">0 tarefas</div>
+        </div>
+        <div class="col-scroll" data-col-scroll>
+          <div class="empty-state">
+            <i class="fas fa-tools"></i>
+            <p>Nenhuma tarefa em andamento</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="column" data-column="Feito">
+        <div class="col-header">
+          <div class="col-title"><i class="fas fa-check-circle"></i> Feito</div>
+          <div class="col-count">0 tarefas</div>
+        </div>
+        <div class="col-scroll" data-col-scroll>
+          <div class="empty-state">
+            <i class="fas fa-trophy"></i>
+            <p>Nenhuma tarefa concluída</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="context-menu" id="contextMenu"></div>
+
+    <div class="modal-backdrop" id="modalBackdrop">
+      <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+          <h3 class="modal-title">Detalhes da Tarefa</h3>
+        </div>
+
+        <div class="modal-content">
+          <textarea class="modal-textarea" id="modalText" placeholder="Digite o conteúdo da tarefa..."></textarea>
+
+          <label class="priority-toggle">
+            <input type="checkbox" id="modalPriority">
+            <span class="toggle-switch"></span>
+            <span>Marcar como prioridade</span>
+          </label>
+
+          <div class="modal-info">
+            <div class="info-row">
+              <span class="info-label">Status:</span>
+              <span class="info-value" id="modalStatus"></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Criada em:</span>
+              <span class="info-value" id="modalCreated"></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Modificada em:</span>
+              <span class="info-value" id="modalModified"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div style="font-size:13px;color:var(--muted)">
+            Clique fora da janela ou pressione ESC para cancelar
+          </div>
+          <div class="modal-actions">
+            <button id="saveDetails" class="btn"><i class="fas fa-save"></i> Salvar</button>
+            <button id="deleteTask" class="btn danger"><i class="fas fa-trash"></i> Excluir</button>
+            <button id="closeModal" class="btn secondary"><i class="fas fa-times"></i> Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+  
+</body>
+
+</html>
